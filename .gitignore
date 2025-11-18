@@ -4,3 +4,7 @@ node_modules
 .DS_Store
 # Local Netlify folder
 .netlify
+
+# Kubernetes secrets (never commit real credentials!)
+k8s/*-secret.yaml
+k8s/github-metrics-secret.yaml

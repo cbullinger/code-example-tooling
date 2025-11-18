@@ -1,0 +1,24 @@
+image:
+  repository: ""
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+schedule: "0 2 * * *"
+concurrencyPolicy: Forbid
+successfulJobsHistoryLimit: 3
+failedJobsHistoryLimit: 3
+backoffLimit: 2
+ttlSecondsAfterFinished: 86400
+
+serviceAccountName: "tool-jobs-sa"
+
+secretsRef: "github-metrics-secrets"
+configRef: "github-metrics-config"
+
+resources:
+  requests:
+    cpu: "100m"
+    memory: "128Mi"
+  limits:
+    cpu: "500m"
+    memory: "256Mi"

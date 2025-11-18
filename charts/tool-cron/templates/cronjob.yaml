@@ -1,0 +1,36 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "tool-cron.fullname" . }}
+  labels:
+    {{- include "tool-cron.labels" . | nindent 4 }}
+spec:
+  schedule: {{ .Values.schedule | quote }}
+  concurrencyPolicy: {{ .Values.concurrencyPolicy }}
+  successfulJobsHistoryLimit: {{ .Values.successfulJobsHistoryLimit }}
+  failedJobsHistoryLimit: {{ .Values.failedJobsHistoryLimit }}
+  jobTemplate:
+    spec:
+      backoffLimit: {{ .Values.backoffLimit }}
+      ttlSecondsAfterFinished: {{ .Values.ttlSecondsAfterFinished }}
+      template:
+        metadata:
+          labels:
+            {{- include "tool-cron.selectorLabels" . | nindent 12 }}
+        spec:
+          serviceAccountName: {{ .Values.serviceAccountName }}
+          restartPolicy: Never
+          containers:
+            - name: worker
+              image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+              imagePullPolicy: {{ .Values.image.pullPolicy }}
+              # leave command null so Docker CMD is used by default
+              # command: []
+              # args: []
+              envFrom:
+                - secretRef:
+                    name: {{ .Values.secretsRef }}
+                - configMapRef:
+                    name: {{ .Values.configRef }}
+              resources:
+                {{- toYaml .Values.resources | nindent 16 }}
