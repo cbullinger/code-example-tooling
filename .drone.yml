@@ -17,10 +17,10 @@ steps:
   - name: publish
     image: plugins/kaniko-ecr
     settings:
+      create_repository: true
       registry: 795250896452.dkr.ecr.us-east-1.amazonaws.com
       repo: docs/github-metrics
       dockerfile: github-metrics/Dockerfile.test  # Use test Dockerfile
-      context: .
       tags:
       - test-${DRONE_COMMIT_SHA:0:7}
       - test-latest
@@ -35,7 +35,9 @@ steps:
   - name: deploy-staging
     image: public.ecr.aws/kanopy/drone-helm:v3
     settings:
-      chart: ./charts/test-server  # Use test chart
+      chart: mongodb/web-app
+      chart_version: 4.25.0
+      add_repos: [mongodb=https://10gen.github.io/helm-charts]
       namespace: docs
       release: github-metrics-test
       values: >
