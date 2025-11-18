@@ -1,0 +1,26 @@
+image:
+  repository: ""
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+replicas: 1
+
+serviceAccountName: "tool-jobs-sa"
+
+secretsRef: "github-metrics-secrets"
+configRef: "github-metrics-config"
+
+service:
+  type: ClusterIP
+  port: 8080
+
+resources:
+  requests:
+    cpu: "100m"
+    memory: "128Mi"
+  limits:
+    cpu: "500m"
+    memory: "256Mi"
+
+arch: "arm64"
+
