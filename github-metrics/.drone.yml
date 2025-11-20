@@ -14,6 +14,7 @@ steps:
   - name: test
     image: node:20-alpine
     commands:
+      - cd github-metrics
       - npm ci
       - node --version
       - npm --version
@@ -48,7 +49,7 @@ steps:
       secret_key:
         from_secret: ecr_secret_key
       context: github-metrics
-      dockerfile: Dockerfile
+      dockerfile: github-metrics/Dockerfile
 
 ---
 depends_on: ['production-build']
