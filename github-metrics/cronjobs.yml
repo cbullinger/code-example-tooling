@@ -1,0 +1,25 @@
+---
+# `image` can be skipped if the values are being set in your .drone.yml file
+image:
+  repository: 795250896452.dkr.ecr.us-east-1.amazonaws.com/docs/code-example-tooling
+  tag: latest
+
+# global secrets are references to k8s Secrets
+globalEnvSecrets:
+  GITHUB_TOKEN: github-token
+  ATLAS_CONNECTION_STRING: atlas-connection-string
+
+cronJobs:
+  - name: github-metrics-biweekly
+    # Run biweekly on the 1st and 15th of each month at 8am UTC
+    schedule: "0 8 1,15 * *"
+    command:
+      - node
+      - index.js
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 512Mi
