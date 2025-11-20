@@ -47,7 +47,8 @@ steps:
         from_secret: ecr_access_key
       secret_key:
         from_secret: ecr_secret_key
-      dockerfile: github-metrics/Dockerfile
+      context: github-metrics
+      dockerfile: Dockerfile
 
 ---
 depends_on: ['production-build']
