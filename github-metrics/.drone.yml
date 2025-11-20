@@ -47,7 +47,6 @@ steps:
         from_secret: ecr_access_key
       secret_key:
         from_secret: ecr_secret_key
-      context: github-metrics
       dockerfile: github-metrics/Dockerfile
 
 ---
