@@ -69,8 +69,8 @@ steps:
   - name: deploy-production
     image: quay.io/mongodb/drone-helm:v3
     settings:
-      chart: mongodb/cronjob
-      chart_version: 2.0.0
+      chart: mongodb/cronjobs
+      chart_version: 1.21.2
       add_repos: [mongodb=https://10gen.github.io/helm-charts]
       namespace: docs
       release: github-metrics
@@ -78,4 +78,4 @@ steps:
       values_files: ['github-metrics/cronjobs.yml']
       api_server: https://api.prod.corp.mongodb.com
       kubernetes_token:
-        from_secret: prod_kubernetes_token
+        from_secret: kubernetes_token
