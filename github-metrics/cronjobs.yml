@@ -4,6 +4,13 @@ image:
   repository: 795250896452.dkr.ecr.us-east-1.amazonaws.com/docs/code-example-tooling
   tag: latest
 
+# Service account configuration for IRSA (IAM Roles for Service Accounts)
+serviceAccount:
+  enabled: true
+  irsa:
+    accountId: "216656347858"
+    roleName: devDocsCodeToolingServiceRole
+
 # global secrets are references to k8s Secrets
 globalEnvSecrets:
   GITHUB_TOKEN: github-token
