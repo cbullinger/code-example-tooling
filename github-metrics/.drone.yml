@@ -70,7 +70,7 @@ steps:
     image: quay.io/mongodb/drone-helm:v3
     settings:
       chart: mongodb/cronjob
-      chart_version: 1.21.2
+      chart_version: 2.0.0
       add_repos: [mongodb=https://10gen.github.io/helm-charts]
       namespace: docs
       release: github-metrics
